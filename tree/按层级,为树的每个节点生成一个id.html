@@ -1,0 +1,53 @@
+<! DOCTTYPE>
+<html>
+    <body>
+        <script type="text/javascript">
+            let rootNode = {
+                name: 'node_0',
+                children: [
+                    {name: 'node_0_0', children: [
+                        {name: 'node_0_0_0'},
+                        {name: 'node_0_0_1'},
+                        {name: 'node_0_0_2', children: [
+                            {name: 'node_0_0_2_0'},
+                            {name: 'node_0_0_2_1'},
+                            {name: 'node_0_0_2_2'},
+                            {name: 'node_0_0_2_3'}
+                        ]},
+                        {name: 'node_0_0_3'},
+                    ]},
+                    {name: 'node_0_1'},
+                    {name: 'node_0_2'},
+                    {name: 'node_0_3', children: [
+                        {name: 'node_0_3_0'},
+                        {name: 'node_0_3_1'},
+                        {name: 'node_0_3_2'},
+                        {name: 'node_0_3_3'},
+                    ]},
+                    {name: 'node_0_4'}
+                ]
+            }
+    
+            /**
+            * @desc 根据tree节点的层级，给每一个节点生成一个id，rootNode的id为'node_0',其所有孩子节点的id为'node_0_x'
+            *
+            * @param treeNode { plainObject } 树节点
+            * @param parentNodeId { string } 当前treeNode其父亲节点对应的id
+            * @param index { number } 但前节点在是父亲节点的第index个孩子（从左到右边，index从0开始）
+            *
+            **/
+            function generateIdForEachNode (treeNode, parentNodeId, index) {
+                treeNode.nodeId = parentNodeId + '_' + index
+                if (Array.isArray(treeNode.children)) {
+                    treeNode.children.forEach((item, index) => {
+                        generateIdForEachNode(item, treeNode.nodeId, index)
+                    })
+                }
+            }
+    
+            // 测试
+            generateIdForEachNode(rootNode, 'node', 0)
+            console.log(rootNode)
+        </script>
+    </body>
+</html>
